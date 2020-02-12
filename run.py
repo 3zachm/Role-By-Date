@@ -12,12 +12,13 @@ bot = commands.Bot(command_prefix = '!')
 @client.event
 async def on_ready(self):
     print('Ready as {0}.'.format(self.user))
+    bot.loop.create_task(checkBirthday())
     
 @client.event
 async def on_message(self, message):
     print('{0.author}: {0.content}'.format(message))
 
-@bot.command()
+@bot.command(name="print")
 async def print(ctx, arg1):
     print('{}'.format(arg1))
     await ctx.send('{}'.format(arg1))
@@ -26,12 +27,20 @@ async def print(ctx, arg1):
 async def getID(ctx, user: discord.User):
     await ctx.send(user.id)
 
-@tasks.loop()  # not implemented correctly
+#@tasks.loop()
 async def checkBirthday():
-    if len(searchBirthday(int(getDate('m')), int(getDate('d'))) > 1:
-        # code for assigning role based on name
+    await client.wait_until_ready()
+    bday = True
+    lastDay =  getDate('d')
+    while bday == True
+        if len(searchBirthday(int(getDate('m')), int(getDate('d'))) > 1:
+            bday = False
+            lastDay = getDate('d')
+    while bday == False
+        if getDate('d') != lastDay:
+            bday == True
 
-#async def assignRole(id)
+async def assignRole(id)
     # not all here but get ID from mention, store ID, use ID here to assign role
 
 def addDB(name, month, day):
