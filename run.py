@@ -16,31 +16,37 @@ async def print(ctx, arg1):
 async def getID(ctx, user: discord.User, op = ''):
     message = user.id, " " + op
     await ctx.send('{}'.format(message))
-    
+@bot.command(name="checkBday") # debug command
+async def checkBday(ctx, d, m):
+    if len(searchBirthday(int(m), int(d))) > 1:
+            message = 'Birthday found'
+    else:
+        message = 'Not found'
+    ctx.send(message)    
 
 @bot.command(name="bday")
 async def bday(ctx, user: discord.User, op = '', month = 0, day = 0): # test if amount of parameters from user matters or throws errors
     if op == 'add': 
         if searchName(user.id):
-            await ctx.send('User already present in database. Use edit or remove.') 
+            message = 'User already present in database. Use edit or remove.'
         #elif user == '':
             #await ctx.send('Please specify a name!')
         else: 
             addDB(user.id, month, day)
             message = 'Added successfully!'
-            await ctx.send(message)
     elif op == 'remove':
         removeDB(user.id)
-        await ctx.send('Removed successfully!')
+        message = 'Removed successfully!'
     elif op == 'edit':
         removeDB(user.id)
         addDB(user.id, month, day)
-        await ctx.send('Edited successfully!')
+        message = 'Edited successfully!'
     elif op == 'list':
         day = getBirthday(user.id)
-        await ctx.send(day)
+        message = day
     else:
-        await ctx.send('Proper operations include ``add``, ``remove``, ``edit``, and ``list [mention]``.')   
+        message = 'Proper operations include ``add``, ``remove``, ``edit``, and ``list [mention]``.'
+    await ctx.send(message)   
 #@bday.error
 #async def bday_error(ctx, error):
 #    await ctx.send('Proper syntax is !bday [mention] [add/remove/edit/list] [month] [day]')
@@ -55,7 +61,7 @@ async def checkBirthday():
         if len(searchBirthday(int(getDate('m')), int(getDate('d')))) > 1:
             bday = False
             lastDay = getDate('d')
-            lastYser = searchBirthday(int(getDate('m')), int(getDate('d')))
+            lastUser = searchBirthday(int(getDate('m')), int(getDate('d')))
             #add role
     while bday == False:
         if getDate('d') != lastDay:

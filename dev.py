@@ -8,26 +8,25 @@ birthdays = TinyDB('bday-debug.json')
 def bday(dID, op = '', month = 0, day = 0): # test if amount of parameters from user matters or throws errors
     if op == 'add': 
         if searchName(dID):
-            print('User already present in database. Use edit or remove.') 
+            message = 'User already present in database. Use edit or remove.'
         #elif user == '':
             #print('Please specify a name!')
-        else: # FIX THIS CONDITION !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! Not correctly searching ID :(
+        else: 
             addDB(dID, month, day)
             message = 'Added successfully!'
-            print(message)
     elif op == 'remove':
         removeDB(dID)
-        print('Removed successfully!')
+        message = 'Removed successfully!'
     elif op == 'edit':
         removeDB(dID)
         addDB(dID, month, day)
-        print('Edited successfully!')
+        message = 'Edited successfully!'
     elif op == 'list':
         day = getBirthday(dID)
-        print(day)
+        message = day
     else:
-        print('Proper operations include ``add``, ``remove``, ``edit``, and ``list [mention]``.')   
-    
+        message = 'Proper operations include ``add``, ``remove``, ``edit``, and ``list [mention]``.'
+    print(message)
 def addDB(name, month, day):
     birthdays.insert({'name': name, 'month': month, 'day': day})
 
