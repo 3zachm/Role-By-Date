@@ -25,7 +25,7 @@ async def bday(ctx, user: discord.User, op = '', month = 0, day = 0): # test if 
             await ctx.send('User already present in database. Use edit or remove.') 
         #elif user == '':
             #await ctx.send('Please specify a name!')
-        else: # FIX THIS CONDITION !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! Not correctly searching ID :(
+        else: 
             addDB(user.id, month, day)
             message = 'Added successfully!'
             await ctx.send(message)
@@ -82,10 +82,10 @@ def searchName(n):
     Birthday = Query()
     rtnBday = birthdays.search((Birthday.name == n))
     iName = [r['name'] for r in rtnBday]
-    getName = str(iName)
+    name = '\''.join(iName)
     found = False
-    if len(searchBirthday(int(getDate('m')), int(getDate('d')))) > 1:
-            found = True
+    if name == n:
+        found = True
     return found
 
 def getBirthday(n):

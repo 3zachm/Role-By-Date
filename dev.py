@@ -49,10 +49,10 @@ def searchName(n):
     Birthday = Query()
     rtnBday = birthdays.search((Birthday.name == n))
     iName = [r['name'] for r in rtnBday]
-    getName = str(iName)
+    name = '\''.join(iName)
     found = False
-    if len(searchBirthday(int(getDate('m')), int(getDate('d')))) > 1:
-            found = True
+    if name == n:
+        found = True
     return found
 
 def getBirthday(n):
@@ -78,6 +78,8 @@ def numToWord(month):
     return month[index]
 
 while(True):
-    command, dID, op, month, day  =  input(">>>").split() or '', '', '', '', ''
+    command, dID, op, month, day  =  input(">>>").split()
     if command == "bday":
         bday(dID, op, month, day)
+    if command == "search":
+        print(searchName(dID))
