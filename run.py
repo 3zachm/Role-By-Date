@@ -1,9 +1,16 @@
 import discord
+import configparser
+import io
 from discord.ext import commands, tasks
 from tinydb import TinyDB, Query
 from datetime import date
-# literally anything related to discord is untested
-botToken = ''
+
+with open("config.ini") as c:
+    discord_config = c.read()
+config = configparser.RawConfigParser(allow_no_value=True)
+config.readfp(io.BytesIO(discord_config))
+
+botToken = config.get('discord', 'token')
 birthdays = TinyDB('bday-db.json')
 bot = commands.Bot(command_prefix = '!')
 
@@ -16,6 +23,7 @@ async def print(ctx, arg1):
 async def getID(ctx, user: discord.User, op = ''):
     message = user.id, " " + op
     await ctx.send('{}'.format(message))
+
 @bot.command(name="checkBday") # debug command
 async def checkBday(ctx, d, m):
     if len(searchBirthday(int(m), int(d))) > 1:
