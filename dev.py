@@ -1,9 +1,23 @@
 import discord
+import configparser
+import io
 from discord.ext import commands, tasks
 from tinydb import TinyDB, Query
 from datetime import date
 
+with open("config.ini") as c:
+    discord_config = c.read()
+config = configparser.RawConfigParser(allow_no_value=True)
+config.read_file(io.StringIO(discord_config))
+
 birthdays = TinyDB('bday-debug.json')
+
+def checkBday(m, d):
+    if len(searchBirthday(int(m), int(d))) > 1:
+            message = 'Birthday found'
+    else:
+        message = 'Not found'
+    print(message)    
 
 def bday(dID, op = '', month = 0, day = 0): # test if amount of parameters from user matters or throws errors
     if op == 'add': 
@@ -82,3 +96,5 @@ while(True):
         bday(dID, op, month, day)
     if command == "search":
         print(searchName(dID))
+    if command == "checkBday":
+        checkBday(month, day)

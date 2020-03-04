@@ -8,7 +8,7 @@ from datetime import date
 with open("config.ini") as c:
     discord_config = c.read()
 config = configparser.RawConfigParser(allow_no_value=True)
-config.readfp(io.BytesIO(discord_config))
+config.read_file(io.StringIO(discord_config))
 
 botToken = config.get('discord', 'token')
 birthdays = TinyDB('bday-db.json')
@@ -25,12 +25,12 @@ async def getID(ctx, user: discord.User, op = ''):
     await ctx.send('{}'.format(message))
 
 @bot.command(name="checkBday") # debug command
-async def checkBday(ctx, d, m):
+async def checkBday(ctx, m, d):
     if len(searchBirthday(int(m), int(d))) > 1:
             message = 'Birthday found'
     else:
         message = 'Not found'
-    ctx.send(message)    
+    await ctx.send(message)    
 
 @bot.command(name="bday")
 async def bday(ctx, user: discord.User, op = '', month = 0, day = 0): # test if amount of parameters from user matters or throws errors
