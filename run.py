@@ -26,11 +26,15 @@ async def getID(ctx, user: discord.User, op = ''):
 
 @bot.command(name="checkBday") # debug command
 async def checkBday(ctx, m, d):
-    if len(searchBirthday(int(m), int(d))) > 1:
+    if len(searchBirthday(m, d)) > 1:
             message = 'Birthday found'
     else:
         message = 'Not found'
     await ctx.send(message)    
+
+@bot.command(name="assignRole") # debug command
+async def assignRole(ctx, user: discord.User, role = config.get('discord', 'role')):
+    await ctx.send("unfinished") #code
 
 @bot.command(name="bday")
 async def bday(ctx, user: discord.User, op = '', month = 0, day = 0): # test if amount of parameters from user matters or throws errors
@@ -66,10 +70,10 @@ async def checkBirthday():
     lastDay =  getDate('d')
     lastUser = 0
     while bday == True:
-        if len(searchBirthday(int(getDate('m')), int(getDate('d')))) > 1:
+        if len(searchBirthday(str(getDate('m')), str(getDate('d')))) > 1:
             bday = False
             lastDay = getDate('d')
-            lastUser = searchBirthday(int(getDate('m')), int(getDate('d')))
+            lastUser = searchBirthday(str(getDate('m')), str(getDate('d')))
             #add role
     while bday == False:
         if getDate('d') != lastDay:

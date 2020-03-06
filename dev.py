@@ -13,7 +13,7 @@ config.read_file(io.StringIO(discord_config))
 birthdays = TinyDB('bday-debug.json')
 
 def checkBday(m, d):
-    if len(searchBirthday(int(m), int(d))) > 1:
+    if len(searchBirthday(m, d)) > 1:
             message = 'Birthday found'
     else:
         message = 'Not found'
@@ -53,7 +53,8 @@ def listDB():
 
 def searchBirthday(m, d):
     Birthday = Query()
-    rtnBday = birthdays.search((Birthday.month == m) & (Birthday.day == d))
+    rtnBday = birthdays.search((Birthday.month == m) & (Birthday.day == d)) # fix?
+    print(rtnBday) # debug remove
     getName = [r['name'] for r in rtnBday]
     name = '\''.join(getName)
     return name
@@ -89,7 +90,6 @@ def numToWord(month):
     months = ["January","February","March","April","May","June","July",
             "August","September","October","November","December"];
     return month[index]
-
 while(True):
     command, dID, op, month, day  =  input(">>>").split()
     if command == "bday":
