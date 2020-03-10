@@ -33,8 +33,9 @@ async def checkBday(ctx, m, d):
     await ctx.send(message)    
 
 @bot.command(name="assignRole") # debug command
-async def assignRole(ctx, user: discord.User, role = config.get('discord', 'role')):
-    await ctx.send("unfinished") #code
+async def assignRole(ctx, user: discord.User, roleN = config.get('discord', 'role')):
+    role = discord.utils.get(user.server.roles, name=str(roleN))
+    await bot.add_roles(user, role)
 
 @bot.command(name="bday")
 async def bday(ctx, user: discord.User, op = '', month = 0, day = 0): # test if amount of parameters from user matters or throws errors
