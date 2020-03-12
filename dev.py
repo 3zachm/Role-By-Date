@@ -86,15 +86,22 @@ def getDate(dmy):
     if dmy == 'm':
         return currentDate.strftime("%m")
 def numToWord(month):
-    index = month - 1
+    index = int(month) - 1
     months = ["January","February","March","April","May","June","July",
             "August","September","October","November","December"];
-    return month[index]
+    return months[index]
 while(True):
-    command, dID, op, month, day  =  input(">>>").split()
+    command =  input(">>>")
+    command2 = command, " >>>"
     if command == "bday":
+        dID, op, month, day  =  input(command2).split()
         bday(dID, op, month, day)
     if command == "search":
+        dID  =  input(command2).split()
         print(searchName(dID))
     if command == "checkBday":
+        month, day  =  input(command2).split()
         checkBday(month, day)
+    if command == "numToWord":
+        month, day  =  input(command2).split()
+        print(numToWord(month), " ", day)

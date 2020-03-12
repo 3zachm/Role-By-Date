@@ -127,7 +127,7 @@ def numToWord(month):
     index = month - 1
     months = ["January","February","March","April","May","June","July",
             "August","September","October","November","December"];
-    return month[index]
+    return months[index]
 
 bot.run(botToken)
 bot.loop.create_task(checkBirthday())
